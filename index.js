@@ -33,7 +33,10 @@ app.get('/api/product', (req, res) => {
 
 // ALTERNA PARA UNO ESPECIFICO 
 app.get('/api/product/:productId', (req, res)=> {
-
+Product.findById({_id:req.params.productId}, function(error,product){
+		if (error) throw error;	
+		return res.status(200).json(product)
+})
 
 })
 
