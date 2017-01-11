@@ -21,8 +21,13 @@ app.use(bodyParser.json()) //para permitir peticiones en formato json
 // TIPO GET, PARA QUE MUESTRE LOS PRODUCTOS
 
 app.get('/api/product', (req, res) => {
+	Product.find({},function(error,products){
+		if (error) throw error;	
+		return res.status(200).json(products)
 
-	res.send(200, {products:[]})
+	})
+	
+
 })
 
 
@@ -41,10 +46,10 @@ app.post('/api/product', (req, res)=> {
 	newProduct.save(function(error,createdProduct){
 		if (error) throw error;
 		if (createdProduct){
-			return res.status(200).send({message: 'El producto se ha recibido',
+			return res.status(200).json({message: 'El producto se ha recibido',
 				createdProduct:createdProduct});
 		}
-		return res.status(500).send({message: 'Error desconocido'});
+		return res.status(500).json({message: 'Error desconocido'});
 	})
 })
 
