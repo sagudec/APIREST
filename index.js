@@ -37,7 +37,15 @@ app.post('/api/product', (req, res)=> {
 
 	// para poder ver el cuerpo de la peticion
 	console.log(req.body)
-	res.status(200).send({message: 'El producto se ha recibido'})
+	let newProduct = Product(req.body);
+	newProduct.save(function(error,createdProduct){
+		if (error) throw error;
+		if (createdProduct){
+			return res.status(200).send({message: 'El producto se ha recibido',
+				createdProduct:createdProduct});
+		}
+		return res.status(500).send({message: 'Error desconocido'});
+	})
 })
 
 // TIPO PUT, PARA LAS ACTUALIZACIONES
