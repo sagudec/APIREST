@@ -2,7 +2,9 @@
 
 const express= require('express') //importar express al proyecto
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/my_database');
 
 
 // const para definir una variable
@@ -10,6 +12,7 @@ const bodyParser = require('body-parser')
 const app= express()//crear el servidor
 const port = process.env.PORT || 3001
 
+const Product = require('./product.model')
 
 app.use(bodyParser.urlencoded({ extended:false}))
 app.use(bodyParser.json()) //para permitir peticiones en formato json
