@@ -75,7 +75,13 @@ app.put('/api/product/:productId', (req, res)=> {
 
 app.delete('/api/product/:productId', (req, res) => {
 
-
+	Product.find({_id:req.params.productId}).remove().exec(function(error,data){
+		if (error) throw error;
+		return res.status(200).json({message: 'El producto se ha eliminado',
+			data:data});
+	
+			return res.status(500).json({message: 'Error desconocido'});
+	})
 })
 
 
