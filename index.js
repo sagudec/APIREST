@@ -58,6 +58,15 @@ app.post('/api/product', (req, res)=> {
 
 app.put('/api/product/:productId', (req, res)=> {
 
+	console.log(req.body)
+	Product.findOneAndUpdate({_id:req.params.productId},{$set:req.body},{new:true},function(error,updatedProduct){
+		if (error) throw error;
+		if (updatedProduct){
+			return res.status(201).json({message: 'El producto se ha actualizado',
+				updatedProduct:updatedProduct});
+		}
+		return res.status(500).json({message: 'Error desconocido'});
+	})
 
 })
 
